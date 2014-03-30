@@ -14,15 +14,9 @@
 	
  "content_scripts": [
     {
-      "matches": [
-        "*://*.google.de/search*", "*://*.google.com/search*"
-      ],
-      "css": [
-        "inject.css"
-      ],
-      "js": [
-        "js/inject.js"
-      ]
+      "matches": ["*://*.google.de/search*", "*://*.google.com/search*"],
+      "css": ["inject.css"],
+      "js": [js/inject.js"]
     }
     ]
 
