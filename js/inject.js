@@ -8,4 +8,4 @@ Process Flow:
 */
 
 // Just for testing the url Pattern in the manifest
-$("resultStats").update("Oha, it works!");
+document.getElementById('resultStats').innerHTML = 'Powered By Diskrete Informatiker';
