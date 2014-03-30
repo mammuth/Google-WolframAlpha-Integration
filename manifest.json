@@ -5,23 +5,25 @@
 	"description": "ToDo",
 	"version": "1.0",
 
-	// Icon in address bar
+	// Icon in address bar - doesn't work yet
 	"page_action": {
 	  "default_icon": "icon.png",
 	  "default_title": "Google WolframAlpha Integration",
-	  "default_popup": "js/popup.html"
+	  "default_popup": "popup.html"
 	},
 	
-	"content_scripts": [
-		{
-		  "matches": ["http://*/*"],
-		  "js": ["js/jquery.js", "js/wolframIntegration.js"]
-		}
-	  ],
-	  
-	"permissions": [
-	// Pattern: 
-	// .de Wildcard doesn't work yet "*://*.google.de/search*"
-	"<all_urls>"
-	]
+ "content_scripts": [
+    {
+      "matches": [
+        "*://*.google.de/search*", "*://*.google.com/search*"
+      ],
+      "css": [
+        "inject.css"
+      ],
+      "js": [
+        "js/inject.js"
+      ]
+    }
+    ]
+
 }
