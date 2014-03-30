@@ -1,4 +1,4 @@
 Google-WolframAlpha-Integration
 ===============================
 
-Just a Test and Playground for Chrome Extensions
+Just a Test and Playground for Chrome Extensions. And Git.
