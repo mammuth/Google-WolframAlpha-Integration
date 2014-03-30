@@ -1,3 +1,4 @@
+// lol - du gehörst hier hin
 /* 
 Process Flow:
 1. Pass the Google Search Query to Wolfram|Alpha and get the result as XML
