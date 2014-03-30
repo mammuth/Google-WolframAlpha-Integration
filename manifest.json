@@ -16,7 +16,7 @@
     {
       "matches": ["*://*.google.de/search*", "*://*.google.com/search*"],
       "css": ["inject.css"],
-      "js": ["js/inject.js"]
+      "js": ["js/jquery.js", "js/inject.js"]
     }
     ]
 }
