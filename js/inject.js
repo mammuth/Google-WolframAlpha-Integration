@@ -44,13 +44,13 @@ function requestWolframResult(searchQuery) {
 			}
 			
 			// inject and fill result div
-			displayResults(plaintexts[1].textContent, pods[i].getAttribute("title"));
+			displayResults(plaintexts[1].textContent, pods[i].getAttribute("title"), searchQuery);
 		}
 	  }
-	// http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE
 	xmlhttp.open("GET","http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
 	xmlhttp.send();
 }
+
 function displayResults(result, description, searchQuery) {
 	// Result
 	var resultDiv = document.createElement("div");
@@ -69,8 +69,9 @@ function displayResults(result, description, searchQuery) {
 	moreLink.appendChild(document.createTextNode("More"));
 	moreLink.title = "More2";
 	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
-	// Insert result div into DOM
+	moreLink.target = "_blank";
 	
+	// Insert result div into DOM	
 	document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
 	// Add Description and more link into resultDiv
 	document.getElementById("resultDiv").appendChild(descriptionDiv);
