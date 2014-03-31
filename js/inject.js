@@ -34,14 +34,18 @@ function requestWolframResult(searchQuery) {
 			var plaintexts = xmlDoc.getElementsByTagName("plaintext");
 			txt = "";
 			// Skip first pod
-			for (i=1; i<4; i++){
+			/* for (i=1; i<4; i++){
 				// Get pod title
 				txt = txt + pods[i].getAttribute("title") + ": ";
 				console.log("pod #"+i+" title: "+pods[i].getAttribute("title"));
 				// Get value of "plaintext"-node
 				txt = txt + plaintexts[i].textContent + ".  ";
 				console.log("plaintext #"+i+" : "+plaintexts[i].textContent);
-			}
+			} */			
+			
+			console.log(searchQuery);
+			console.log(plaintexts[1].textContent);
+			console.log(pods[1].getAttribute("title"));
 			
 			// inject and fill result div
 			displayResults(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
