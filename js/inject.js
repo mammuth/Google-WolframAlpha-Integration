@@ -44,7 +44,7 @@ function requestWolframResult(searchQuery) {
 			}
 			
 			// inject and fill result div
-			displayResults(plaintexts[1].textContent, pods[i].getAttribute("title"), searchQuery);
+			displayResults(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
 		}
 	  }
 	xmlhttp.open("GET","http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
