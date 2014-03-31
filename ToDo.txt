@@ -1,4 +1,0 @@
-- Enhance speed (don't wait for DOM Ready Event - maybe go for getting the search query out of the url instead of the search input (using Chrome API)
-- Only query WolframAlpha if Google doesn't provide those "Quick-Infos" itself (maybe still add a link "better results on Wolfram|Alpha")
-- Icon in AdressBar (when on *google.*)
-- Firefox Addon

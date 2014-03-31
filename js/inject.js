@@ -71,7 +71,7 @@ function displayResults(result, description, searchQuery) {
 	descriptionDiv.innerHTML = description;
 	// More link
 	moreLink.appendChild(document.createTextNode("More"));
-	moreLink.title = "More2";
+	moreLink.title = "All details on the awesome site of Wolfram|Alpha";
 	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
 	moreLink.target = "_blank";
 	
