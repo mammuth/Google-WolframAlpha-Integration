@@ -5,44 +5,74 @@ Process Flow:
 3. Inject this object beautifully into the Google Site
 */
 
-// Object of the result Statistics on the Google Page
-var stats  = document.querySelector('div[id="resultStats"]');
-
-stats.innerHTML = 'Powered By Diskrete Informatiker';
+// Start when DOM is ready
+$( document ).ready(function() {
+    requestWolframResult(getSearchQuery());
+});
 
 /*
-Get Search Query String (eg. sunrise+munich)
+Get search query string (eg. sunrise+munich)
+returns searcg query
 */
-var searchQuery = document.getElementById('gbqfq').value.replace(/ /g, "+");
-console.log("searchQuery: "+searchQuery);
-// Only "problem": We probably should delay the XMLHttpRequest since the searchQuery isn't read as fast. Alternativley we may use the Chrome API to fetch the query from the URL-Bar
+function getSearchQuery() {
+	var searchQuery = document.getElementById('gbqfq').value.replace(/ /g, "+");
+	console.log("searchQuery: "+searchQuery);
+	return searchQuery;
+}
 
 /* 
 Get and Parse the Wolfram|Alpha result XML
 */
-var xmlhttp = new XMLHttpRequest();
- 
-xmlhttp.onreadystatechange = function(){
-  if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-		xmlDoc=xmlhttp.responseXML;
-		/* Plaintext Result */
-		var pods = xmlDoc.getElementsByTagName("pod");
-		var plaintexts = xmlDoc.getElementsByTagName("plaintext");
-		txt = "";
-		// Skip first pod
-		for (i=1; i<4; i++){
-			// Get pod title
-			txt = txt + pods[i].getAttribute("title") + ": ";
-			console.log("pod #"+i+" title: "+pods[i].getAttribute("title"));
-			// Get value of "plaintext"-node
-			txt = txt + plaintexts[i].textContent + ".  ";
-			console.log("plaintext #"+i+" : "+plaintexts[i].textContent);
+function requestWolframResult(searchQuery) {
+	var xmlhttp = new XMLHttpRequest();
+	 
+	xmlhttp.onreadystatechange = function(){
+	  if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+			xmlDoc=xmlhttp.responseXML;
+			/* Plaintext Result */
+			var pods = xmlDoc.getElementsByTagName("pod");
+			var plaintexts = xmlDoc.getElementsByTagName("plaintext");
+			txt = "";
+			// Skip first pod
+			for (i=1; i<4; i++){
+				// Get pod title
+				txt = txt + pods[i].getAttribute("title") + ": ";
+				console.log("pod #"+i+" title: "+pods[i].getAttribute("title"));
+				// Get value of "plaintext"-node
+				txt = txt + plaintexts[i].textContent + ".  ";
+				console.log("plaintext #"+i+" : "+plaintexts[i].textContent);
+			}
+			
+			// inject and fill result div
+			displayResults(plaintexts[1].textContent, pods[i].getAttribute("title"));
 		}
-		
-		// Just for testing - here it should nicely inject in own elements
-		stats.innerHTML = txt;
-    }
-  }
-// http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE
-xmlhttp.open("GET","http://www.maxi-muth.de/wa.xml",true);
-xmlhttp.send();
+	  }
+	// http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE
+	xmlhttp.open("GET","http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
+	xmlhttp.send();
+}
+function displayResults(result, description, searchQuery) {
+	// Result
+	var resultDiv = document.createElement("div");
+	resultDiv.id = "resultDiv";
+	// Description
+	var descriptionDiv = document.createElement("div");
+	descriptionDiv.id = "description";
+	// More link
+	var moreLink = document.createElement("a");
+	moreLink.id = "moreLink";
+	
+	// Set content of result div and description
+	resultDiv.innerHTML = result;	
+	descriptionDiv.innerHTML = description;
+	// More link
+	moreLink.appendChild(document.createTextNode("More"));
+	moreLink.title = "More2";
+	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
+	// Insert result div into DOM
+	
+	document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
+	// Add Description and more link into resultDiv
+	document.getElementById("resultDiv").appendChild(descriptionDiv);
+	document.getElementById("resultDiv").appendChild(moreLink);
+}

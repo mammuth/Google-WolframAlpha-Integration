@@ -1,0 +1,23 @@
+#resultDiv{
+	color: cornflowerblue;
+	width: 516px;
+	margin-left: 127px;
+	margin-bottom: 20px;
+	padding: 20px 20px 24px;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+	box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+	font-size: xx-large !important;
+}
+
+#description {
+	color: #878787;
+	font-size: small;
+	margin-top: 10px;
+}
+
+#moreLink {
+	color: #878787;
+	text-decoration: none;
+	font-size: xx-small;
+	margin-left: 500px;
+}
