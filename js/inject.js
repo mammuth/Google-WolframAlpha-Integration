@@ -10,6 +10,11 @@ var stats  = document.querySelector('div[id="resultStats"]');
 
 stats.innerHTML = 'Powered By Diskrete Informatiker';
 
+/*
+Get Search Query String (eg. sunrise+munich)
+*/
+var searchQuery = document.getElementById('gbqfq').value.replace(/ /g, "+");
+
 /* 
 Get and Parse the Wolfram|Alpha result XML
 */
@@ -22,8 +27,8 @@ $.ajax({
   type: "GET",
   dataType: "xml",
   crossDomain: true,
-  // url: "http://api.wolframalpha.com/v2/query?input=sunrise+munich&appid=8X6XE5-Q5887TY7TE",
-  url: "http://www.maxi-muth.de/sitemap.xml",
+  // url: "http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",
+  url: "http://www.maxi-muth.de/wa.xml",
   success: function(xml){
   // Never gets here...
    console.log("Got the XML!");
