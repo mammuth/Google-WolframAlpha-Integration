@@ -5,7 +5,7 @@
 	"description": "ToDo",
 	"version": "1.0",
 
-	// Icon in address bar - doesn't work yet
+	"_comment_page_action" : "Icon in address bar - doesn't work yet",
 	"page_action": {
 	  "default_icon": "icon.png",
 	  "default_title": "Google WolframAlpha Integration",
@@ -19,5 +19,9 @@
       "js": ["js/jquery.js", "js/inject.js"]
     }
     ],
+<<<<<<< HEAD
  "permissions": ["tabs", "http://api.wolframalpha.com/v2/query?*", "http://*.maxi-muth.de/*"]
+=======
+   "permissions": ["http://*.www.maxi-muth.de"]   
+>>>>>>> e43d0f1abd9559f61f2a395aa724f34664428a05
 }
