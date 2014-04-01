@@ -62,9 +62,9 @@ function requestWolframResult(searchQuery) {
 			
 			/* Inject the result */
 			// As plaintext
-			displayResultAsPlaintext(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
+			//displayResultAsPlaintext(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
 			// As image
-			//displayResultAsImage(imgs[1].getAttribute("src"), imgs[1].getAttribute("width"), imgs[1].getAttribute("height"), imgs[1].getAttribute("title"), imgs[1].getAttribute("alt"), pods[1].getAttribute("title"), searchQuery);
+			displayResultAsImage(imgs[1].getAttribute("src"), imgs[1].getAttribute("width"), imgs[1].getAttribute("height"), imgs[1].getAttribute("title"), imgs[1].getAttribute("alt"), pods[1].getAttribute("title"), searchQuery);
 		}
 	  }
 	xmlhttp.open("GET","http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
@@ -74,10 +74,15 @@ function requestWolframResult(searchQuery) {
 
 /* Inject result as image */
 function displayResultAsImage(imgSrc, width, height, title, alt, description, searchQuery) {
-	//DOESNT WORK WITH HISTORY - SEE NEXT METHOD FOR FIX!
 	// Result Container
-	var resultDiv = document.createElement("div");
-	resultDiv.id = "resultDiv";
+	if ($('#resultDiv').length == 0) { //if the div doesn't already exists:
+		var resultDiv = document.createElement("div");
+		resultDiv.id = "resultDiv";
+		// Insert result div into DOM	
+		document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
+		// Add Description and more link into resultDiv
+	} 		
+	$('#resultDiv').text(""); //resets the element.
 	// Description
 	var descriptionDiv = document.createElement("div");
 	descriptionDiv.id = "description";
@@ -103,14 +108,13 @@ function displayResultAsImage(imgSrc, width, height, title, alt, description, se
 	moreLink.title = "All details on the awesome site of Wolfram|Alpha";
 	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
 	moreLink.target = "_blank";
-	
-	// Insert result div into DOM	
-	document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
-	
+	$('#resultDiv').append(descriptionDiv);
+	$('#resultDiv').append(moreLink);
+		
 	// Add Description and more link into resultDiv
-	document.getElementById("resultDiv").appendChild(resultImg);
-	document.getElementById("resultDiv").appendChild(descriptionDiv);
-	document.getElementById("resultDiv").appendChild(moreLink);
+	$('#resultDiv').append(resultImg);
+	$('#resultDiv').append(descriptionDiv);
+	$('#resultDiv').append(moreLink);
 	
 }
 
@@ -125,9 +129,6 @@ function displayResultAsPlaintext(result, description, searchQuery) {
 		// Add Description and more link into resultDiv
 	} 	
 	$('#resultDiv').text(result);	
-	// Set content of result div and description
-	$('#descriptionDiv').text(description);
-	// More link
 
 	// Description
 	var descriptionDiv = document.createElement("div");
