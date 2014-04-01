@@ -4,6 +4,7 @@
 	"name": "Google WolframAlpha Integration",
 	"description": "ToDo",
 	"version": "1.0",
+	"icons": { "16": "icon.png" },
 
 	"background": {
 		"scripts": ["js/eventPage.js"],
