@@ -28,7 +28,7 @@ function injectWolframButton(searchQuery) {
 	// Result Container
 	var wolframButton = document.createElement("button");
 	wolframButton.id = "wolframButton";
-	wolframButton.innerHTML = "Wolfram";
+	wolframButton.innerHTML = "Seach Wolfram";
 	wolframButton.setAttribute("type", "button");
     wolframButton.setAttribute("value", "wolfram");
     wolframButton.setAttribute("name", "wolframButton");
