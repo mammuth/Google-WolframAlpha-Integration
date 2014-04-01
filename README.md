@@ -1,4 +1,6 @@
 Google-WolframAlpha-Integration
 ===============================
 
-Just a Test and Playground for Chrome Extensions. And Git.
+Chrome Extension that integrates Wolfram|Alpha Results into Google.
+
+Under development.
