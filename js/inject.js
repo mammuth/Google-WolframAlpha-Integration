@@ -7,7 +7,14 @@ Process Flow:
 
 // Start when DOM is ready
 $( document ).ready(function() {
-    requestWolframResult(getSearchQuery());
+	// Determine whether Google provided their own "Quick Results"
+	if (!document.getElementsByClassName("vk_c")[0]) {
+		console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
+		requestWolframResult(getSearchQuery());
+	} else {
+		console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
+	}
+    
 });
 
 /*
