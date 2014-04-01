@@ -20,8 +20,8 @@ function getURL() {
 			injectWolframButton(response);
 			console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
 		}   
-	})
-};
+	});
+}
 
 getURL(); // this makes searching via omnibox possible.
 
@@ -31,9 +31,9 @@ window.onpopstate = getURL; //calls the method on every history change.
 Inject a Button "Search on Wolfram Alpha!" when not displaying them automatically
 */
 function injectWolframButton(searchQuery) {
-	if($('#wolframButton').length == 0) { // to avoid double buttons. Two mighty buttons would be too awesome!
+	if($('#wolframButton').length === 0) { // to avoid double buttons. Two mighty buttons would be too awesome!
 		var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(openWolframWebsite);
-	    $input.insertBefore("#rcnt");
+		$input.insertBefore("#rcnt");
 	} else {
 		$('#wolframButton').click(openWolframWebsite);
 	}
@@ -51,7 +51,7 @@ function requestWolframResult(searchQuery) {
 	var xmlhttp = new XMLHttpRequest();
 	 
 	xmlhttp.onreadystatechange = function(){
-	  if (xmlhttp.readyState == 4 && xmlhttp.status === 200){
+		if (xmlhttp.readyState == 4 && xmlhttp.status === 200){
 			var xmlDoc = xmlhttp.responseXML;
 			/* Plaintext Result */
 			var pods = xmlDoc.getElementsByTagName("pod");
@@ -68,7 +68,7 @@ function requestWolframResult(searchQuery) {
 			// As image
 			displayResultAsImage(imgs[1].getAttribute("src"), imgs[1].getAttribute("width"), imgs[1].getAttribute("height"), imgs[1].getAttribute("title"), imgs[1].getAttribute("alt"), pods[1].getAttribute("title"), searchQuery);
 		}
-	  }
+	};
 	xmlhttp.open("GET","http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
 	// xmlhttp.open("GET","http://www.maxi-muth.de/wa.xml",true);
 	xmlhttp.send();
@@ -77,13 +77,13 @@ function requestWolframResult(searchQuery) {
 /* Inject result as image */
 function displayResultAsImage(imgSrc, width, height, title, alt, description, searchQuery) {
 	// Result Container
-	if ($('#resultDiv').length == 0) { //if the div doesn't already exists:
+	if ($('#resultDiv').length === 0) { //if the div doesn't already exists:
 		var resultDiv = document.createElement("div");
 		resultDiv.id = "resultDiv";
 		// Insert result div into DOM	
 		document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
 		// Add Description and more link into resultDiv
-	} 		
+	} 
 	$('#resultDiv').text(""); //resets the element.
 	// Description
 	var descriptionDiv = document.createElement("div");
@@ -123,13 +123,13 @@ function displayResultAsImage(imgSrc, width, height, title, alt, description, se
 /* Inject result as plaintext */
 function displayResultAsPlaintext(result, description, searchQuery) {
 	// Result
-	if ($('#resultDiv').length == 0) { //if the div doesn't already exists:
+	if ($('#resultDiv').length === 0) { //if the div doesn't already exists:
 		var resultDiv = document.createElement("div");
 		resultDiv.id = "resultDiv";
 		// Insert result div into DOM	
 		document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
 		// Add Description and more link into resultDiv
-	} 	
+	}	
 	$('#resultDiv').text(result);	
 
 	// Description
