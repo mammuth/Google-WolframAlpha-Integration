@@ -33,13 +33,7 @@ Inject a Button "Search on Wolfram Alpha!" when not displaying them automaticall
 function injectWolframButton(searchQuery) {
 	if($('#wolframButton').length === 0) { // to avoid double buttons. Two mighty buttons would be too awesome!
 		var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(openWolframWebsite);
-<<<<<<< HEAD
 		$input.insertBefore("#rcnt");
-	} else {
-		$('#wolframButton').click(openWolframWebsite);
-=======
-	    $input.insertBefore("#rcnt");
->>>>>>> 56a00672a8818546e11580bc4979db868d55947f
 	}
 }
 
