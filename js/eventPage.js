@@ -34,4 +34,4 @@ function addIconToOmnibar(tabID, changeInfo, tab) {
 
 chrome.tabs.onUpdated.addListener(onPageUpdate);
 chrome.tabs.onHighlighted.addListener(onPageUpdate);
-//chrome.webNavigation.onHistoryStateUpdated.addListener(onPageUpdate);
+chrome.webNavigation.onHistoryStateUpdated.addListener(onPageUpdate);

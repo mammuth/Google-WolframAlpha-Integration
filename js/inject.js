@@ -21,6 +21,8 @@ function getURL() {
 	})
 };
 
+//getURL();
+
 window.onpopstate = getURL; //calls the method on every history change.
 
 /*
