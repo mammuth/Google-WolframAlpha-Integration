@@ -4,25 +4,33 @@ Process Flow:
 2. Parse that XML to get a HTML-Object of the Result
 3. Inject this object beautifully into the Google Site
 */
+chrome.runtime.sendMessage("getURL", function(response) {
+  requestWolframResult(response);
 
+})
 // Start when DOM is ready
-$( document ).ready(function() {
+/*$( document ).ready(function() {
     requestWolframResult(getSearchQuery());
 });
+*/
 
 /*
 Get search query string (eg. sunrise+munich)
-returns searcg query
+returns search query
 */
-function getSearchQuery() {
-	var searchQuery = document.getElementById('gbqfq').value.replace(/ /g, "+");
-	console.log("searchQuery: "+searchQuery);
-	return searchQuery;
-}
+/*
 
+function getSearchQuery() {
+
+	var searchQuery_ = document.getElementById('gbqfq').value.replace(/ /g, "+");
+	//console.log("searchQuery: "+searchQuery_);
+	return searchQuery_;
+}
+ */
 /* 
 Get and Parse the Wolfram|Alpha result XML
 */
+
 function requestWolframResult(searchQuery) {
 	var xmlhttp = new XMLHttpRequest();
 	 
