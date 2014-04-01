@@ -1,8 +1,19 @@
+function onPageUpdate(tabID, changeInfo, tab) {
+  getURL(tabID, changeInfo, tab);  
+  addIconToOmnibar(tabID, changeInfo, tab);
+}
+
 function getURL(tabID, changeInfo, tab){
-    var url = tab.url;
-    var begin = url.indexOf("?q=");
-    var end = url.indexOf("&");
-    searchQuery = url.substring(begin + 3, end);  
+  var url = tab.url;
+  var begin = url.lastIndexOf("?q=");
+  if (url.lastIndexOf("&") < begin) {
+    var end = url.lastIndexOf("&");
+  } else {
+    var end = url.length;
+  }; 
+  //var end = url.indexOf("&");
+  searchQuery = url.substring(begin + 3, end);
+
 	}; 
 
 chrome.runtime.onMessage.addListener(
@@ -12,5 +23,9 @@ chrome.runtime.onMessage.addListener(
   }
   });
 
-chrome.tabs.onUpdated.addListener(getURL);
-chrome.tabs.onHighlighted.addListener(getURL);
+function addIconToOmnibar(tabID, changeInfo, tab) {
+    chrome.pageAction.show(tab.id);
+}
+
+chrome.tabs.onUpdated.addListener(onPageUpdate);
+chrome.tabs.onHighlighted.addListener(onPageUpdate);

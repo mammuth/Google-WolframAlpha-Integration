@@ -4,22 +4,24 @@ Process Flow:
 2. Parse that XML to get a HTML-Object of the Result
 3. Inject this object beautifully into the Google Site
 */
-var searchQuery;
-
 /* Get Search Query out of URL and think about we should really go for Wolfram instead of Google */
 (function(undefined){
-chrome.runtime.sendMessage("getURL", function(response) {
-	searchQuery = response;
-	// Determine whether Google provided their own "Quick Results"
-	if (!document.getElementsByClassName("vk_c")[0]) {
-		console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
-		requestWolframResult(response);		
-	} else {
-		injectWolframButton(response);
-		console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
-	}    
-});
 
+function getURL() {	
+	chrome.runtime.sendMessage("getURL", function(response) {
+		searchQuery = response;
+		// Determine whether Google provided their own "Quick Results"
+		if (!document.getElementsByClassName("vk_c")[0]) {
+			console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
+			requestWolframResult(response);		
+		} else {
+			injectWolframButton(response);
+			console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
+		}   
+	})
+};
+
+window.onpopstate = getURL; //calls the method on every history change.
 
 /*
 Inject a Button "Search on Wolfram Alpha!" when not displaying them automatically

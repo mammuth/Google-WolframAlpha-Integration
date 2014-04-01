@@ -15,7 +15,6 @@
 	  "default_title": "Google WolframAlpha Integration",
 	  "default_popup": "popup.html"
 	},
-	
  "content_scripts": [
     {
       "matches": ["*://*.google.de/search*", "*://*.google.com/search*"],
