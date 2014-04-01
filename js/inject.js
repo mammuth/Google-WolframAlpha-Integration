@@ -6,6 +6,7 @@ Process Flow:
 */
 
 /* Get Search Query out of URL and think about we should really go for Wolfram instead of Google */
+(function(undefined){
 chrome.runtime.sendMessage("getURL", function(response) {
 	// Determine whether Google provided their own "Quick Results"
 	if (!document.getElementsByClassName("vk_c")[0]) {
@@ -38,29 +39,18 @@ function injectWolframButton(searchQuery) {
 /* 
 Get and Parse the Wolfram|Alpha result XML
 */
-
 function requestWolframResult(searchQuery) {
+	console.log("Method called");
 	var xmlhttp = new XMLHttpRequest();
 	 
 	xmlhttp.onreadystatechange = function(){
-	  if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+	  if (xmlhttp.readyState == 4 && xmlhttp.status === 200){
 			var xmlDoc = xmlhttp.responseXML;
 			/* Plaintext Result */
 			var pods = xmlDoc.getElementsByTagName("pod");
 			var plaintexts = xmlDoc.getElementsByTagName("plaintext");
 			var imgs = xmlDoc.getElementsByTagName("img");
-			
-			/* txt = "";
-			// Skip first pod
-			 for (i=1; i<4; i++){
-				// Get pod title
-				txt = txt + pods[i].getAttribute("title") + ": ";
-				console.log("pod #"+i+" title: "+pods[i].getAttribute("title"));
-				// Get value of "plaintext"-node
-				txt = txt + plaintexts[i].textContent + ".  ";
-				console.log("plaintext #"+i+" : "+plaintexts[i].textContent);
-			} */			
-			
+
 			console.log(searchQuery);
 			console.log(plaintexts[1].textContent);
 			console.log(pods[1].getAttribute("title"));
@@ -145,3 +135,4 @@ function displayResultAsPlaintext(result, description, searchQuery) {
 	document.getElementById("resultDiv").appendChild(descriptionDiv);
 	document.getElementById("resultDiv").appendChild(moreLink);
 }
+})();
