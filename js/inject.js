@@ -15,10 +15,9 @@ chrome.runtime.sendMessage("getURL", function(response) {
 		console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
 		requestWolframResult(response);		
 	} else {
+		injectWolframButton(response);
 		console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
-	}
-	injectWolframButton(response);
-    
+	}    
 });
 
 
