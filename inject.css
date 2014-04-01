@@ -25,3 +25,18 @@
 	font-size: xx-small;
 	margin-left: 500px;
 }
+
+#wolframButton {
+	border-radius: 7px;
+	background-color:transparent;
+	border: 1px solid #eeb44f;
+	color: #ffffff;
+	font-size: 10px;
+	font-weight: bold;
+	font-style: normal;
+	height: 35px;
+	width: 65px;
+	text-decoration: none;
+	text-align: center;
+	text-shadow: 1px 1px 0px #cc9f52;
+}

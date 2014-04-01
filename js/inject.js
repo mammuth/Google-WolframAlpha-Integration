@@ -29,7 +29,7 @@ function injectWolframButton(searchQuery) {
 	// Result Container
 	var wolframButton = document.createElement("button");
 	wolframButton.id = "wolframButton";
-	wolframButton.innerHTML = "Wolfram|Alpha";
+	wolframButton.innerHTML = "Wolfram";
 	wolframButton.setAttribute("type", "button");
     wolframButton.setAttribute("value", "wolfram");
     wolframButton.setAttribute("name", "wolframButton");
