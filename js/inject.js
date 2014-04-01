@@ -34,8 +34,6 @@ function injectWolframButton(searchQuery) {
 	if($('#wolframButton').length == 0) { // to avoid double buttons. Two mighty buttons would be too awesome!
 		var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(openWolframWebsite);
 	    $input.insertBefore("#rcnt");
-	} else {
-		$('#wolframButton').click(openWolframWebsite);
 	}
 }
 
