@@ -5,21 +5,20 @@ Process Flow:
 3. Inject this object beautifully into the Google Site
 */
 
-// Start when DOM is ready
-$( document ).ready(function() {
-
+/* Get Search Query out of URL and think about we should really go for Wolfram instead of Google */
+chrome.runtime.sendMessage("getURL", function(response) {
 	// Determine whether Google provided their own "Quick Results"
 	if (!document.getElementsByClassName("vk_c")[0]) {
 		console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
-		requestWolframResult(getSearchQuery());
+		requestWolframResult(response);		
 	} else {
 		console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
-		
 	}
+	injectWolframButton(response);
     
 });
 
-injectWolframButton(getSearchQuery());
+
 /*
 Inject a Button "Search on Wolfram Alpha!" when not displaying them automatically
 */
@@ -35,19 +34,11 @@ function injectWolframButton(searchQuery) {
 	document.getElementsById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt"));
 }
 
-/*
-Get search query string (eg. sunrise+munich)
-returns searcg query
-*/
-function getSearchQuery() {
-	var searchQuery = document.getElementById('gbqfq').value.replace(/ /g, "+");
-	console.log("searchQuery: "+searchQuery);
-	return searchQuery;
-}
 
 /* 
 Get and Parse the Wolfram|Alpha result XML
 */
+
 function requestWolframResult(searchQuery) {
 	var xmlhttp = new XMLHttpRequest();
 	 
