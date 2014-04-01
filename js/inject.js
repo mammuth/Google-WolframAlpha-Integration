@@ -28,13 +28,15 @@ function requestWolframResult(searchQuery) {
 	 
 	xmlhttp.onreadystatechange = function(){
 	  if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-			xmlDoc=xmlhttp.responseXML;
+			var xmlDoc = xmlhttp.responseXML;
 			/* Plaintext Result */
 			var pods = xmlDoc.getElementsByTagName("pod");
 			var plaintexts = xmlDoc.getElementsByTagName("plaintext");
-			txt = "";
+			var imgs = xmlDoc.getElementsByTagName("img");
+			
+			/* txt = "";
 			// Skip first pod
-			/* for (i=1; i<4; i++){
+			 for (i=1; i<4; i++){
 				// Get pod title
 				txt = txt + pods[i].getAttribute("title") + ": ";
 				console.log("pod #"+i+" title: "+pods[i].getAttribute("title"));
@@ -47,15 +49,61 @@ function requestWolframResult(searchQuery) {
 			console.log(plaintexts[1].textContent);
 			console.log(pods[1].getAttribute("title"));
 			
-			// inject and fill result div
-			displayResults(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
+			/* Inject the result */
+			// As plaintext
+			// displayResultAsPlaintext(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
+			// As image
+			displayResultAsImage(imgs[1].getAttribute("src"), imgs[1].getAttribute("width"), imgs[1].getAttribute("height"), imgs[1].getAttribute("title"), imgs[1].getAttribute("alt"), pods[1].getAttribute("title"), searchQuery);
 		}
 	  }
 	xmlhttp.open("GET","http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
+	// xmlhttp.open("GET","http://www.maxi-muth.de/wa.xml",true);
 	xmlhttp.send();
 }
 
-function displayResults(result, description, searchQuery) {
+/* Inject result as image */
+function displayResultAsImage(imgSrc, width, height, title, alt, description, searchQuery) {
+	// Result Container
+	var resultDiv = document.createElement("div");
+	resultDiv.id = "resultDiv";
+	// Description
+	var descriptionDiv = document.createElement("div");
+	descriptionDiv.id = "description";
+	// Image
+	var resultImg = document.createElement("img");
+	resultImg.id = "resultImg";
+	// More link
+	var moreLink = document.createElement("a");
+	moreLink.id = "moreLink";
+	
+	// Set image
+	resultImg.src = imgSrc;
+	resultImg.title = title;
+	resultImg.alt = alt;
+	// resultImg.width = width;
+	// resultImg.height = height;
+	
+	// Setdescription
+	descriptionDiv.innerHTML = description;	
+	
+	// More link
+	moreLink.appendChild(document.createTextNode("More"));
+	moreLink.title = "All details on the awesome site of Wolfram|Alpha";
+	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
+	moreLink.target = "_blank";
+	
+	// Insert result div into DOM	
+	document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
+	
+	// Add Description and more link into resultDiv
+	document.getElementById("resultDiv").appendChild(resultImg);
+	document.getElementById("resultDiv").appendChild(descriptionDiv);
+	document.getElementById("resultDiv").appendChild(moreLink);
+	
+}
+
+/* Inject result as plaintext */
+function displayResultAsPlaintext(result, description, searchQuery) {
 	// Result
 	var resultDiv = document.createElement("div");
 	resultDiv.id = "resultDiv";
