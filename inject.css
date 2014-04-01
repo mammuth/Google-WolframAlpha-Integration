@@ -27,16 +27,17 @@
 }
 
 #wolframButton {
-	border-radius: 7px;
-	background-color:transparent;
-	border: 1px solid #eeb44f;
-	color: #ffffff;
-	font-size: 10px;
-	font-weight: bold;
-	font-style: normal;
-	height: 35px;
-	width: 65px;
-	text-decoration: none;
-	text-align: center;
-	text-shadow: 1px 1px 0px #cc9f52;
+	color: aliceblue;
+	border: none;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	height: 30px;
+	outline: none;
+	padding: 0 0;
+	width: 60px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	background: #4285f4;
+	background: -webkit-linear-gradient(top,#4387fd,#4683ea);
+	background: linear-gradient(top,#4387fd,#4683ea);
 }
