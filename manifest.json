@@ -23,5 +23,6 @@
     }
     ],
 	
- "permissions": ["tabs", "http://api.wolframalpha.com/v2/query?*", "http://*.maxi-muth.de/*", "*://*.google.de/search*", "*://*.google.com/search*"]
+ "permissions": ["tabs", "webNavigation",
+ "http://api.wolframalpha.com/v2/query?*", "http://*.maxi-muth.de/*", "*://*.google.de/search*", "*://*.google.com/search*"]
 }

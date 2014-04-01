@@ -22,6 +22,8 @@ function getURL() {
 	})
 };
 
+getURL(); // this makes searching via omnibox possible.
+
 window.onpopstate = getURL; //calls the method on every history change.
 
 /*
@@ -57,7 +59,7 @@ function requestWolframResult(searchQuery) {
 			
 			/* Inject the result */
 			// As plaintext
-			// displayResultAsPlaintext(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
+			//displayResultAsPlaintext(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
 			// As image
 			displayResultAsImage(imgs[1].getAttribute("src"), imgs[1].getAttribute("width"), imgs[1].getAttribute("height"), imgs[1].getAttribute("title"), imgs[1].getAttribute("alt"), pods[1].getAttribute("title"), searchQuery);
 		}
@@ -70,8 +72,14 @@ function requestWolframResult(searchQuery) {
 /* Inject result as image */
 function displayResultAsImage(imgSrc, width, height, title, alt, description, searchQuery) {
 	// Result Container
-	var resultDiv = document.createElement("div");
-	resultDiv.id = "resultDiv";
+	if ($('#resultDiv').length == 0) { //if the div doesn't already exists:
+		var resultDiv = document.createElement("div");
+		resultDiv.id = "resultDiv";
+		// Insert result div into DOM	
+		document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
+		// Add Description and more link into resultDiv
+	} 		
+	$('#resultDiv').text(""); //resets the element.
 	// Description
 	var descriptionDiv = document.createElement("div");
 	descriptionDiv.id = "description";
@@ -97,42 +105,44 @@ function displayResultAsImage(imgSrc, width, height, title, alt, description, se
 	moreLink.title = "All details on the awesome site of Wolfram|Alpha";
 	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
 	moreLink.target = "_blank";
-	
-	// Insert result div into DOM	
-	document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
-	
+	$('#resultDiv').append(descriptionDiv);
+	$('#resultDiv').append(moreLink);
+		
 	// Add Description and more link into resultDiv
-	document.getElementById("resultDiv").appendChild(resultImg);
-	document.getElementById("resultDiv").appendChild(descriptionDiv);
-	document.getElementById("resultDiv").appendChild(moreLink);
+	$('#resultDiv').append(resultImg);
+	$('#resultDiv').append(descriptionDiv);
+	$('#resultDiv').append(moreLink);
 	
 }
 
 /* Inject result as plaintext */
 function displayResultAsPlaintext(result, description, searchQuery) {
 	// Result
-	var resultDiv = document.createElement("div");
-	resultDiv.id = "resultDiv";
+	if ($('#resultDiv').length == 0) { //if the div doesn't already exists:
+		var resultDiv = document.createElement("div");
+		resultDiv.id = "resultDiv";
+		// Insert result div into DOM	
+		document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
+		// Add Description and more link into resultDiv
+	} 	
+	$('#resultDiv').text(result);	
+
 	// Description
 	var descriptionDiv = document.createElement("div");
 	descriptionDiv.id = "description";
 	// More link
 	var moreLink = document.createElement("a");
 	moreLink.id = "moreLink";
-	
+
 	// Set content of result div and description
-	resultDiv.innerHTML = result;	
 	descriptionDiv.innerHTML = description;
 	// More link
 	moreLink.appendChild(document.createTextNode("More"));
 	moreLink.title = "All details on the awesome site of Wolfram|Alpha";
 	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
 	moreLink.target = "_blank";
+	$('#resultDiv').append(descriptionDiv);
+	$('#resultDiv').append(moreLink);
 	
-	// Insert result div into DOM	
-	document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
-	// Add Description and more link into resultDiv
-	document.getElementById("resultDiv").appendChild(descriptionDiv);
-	document.getElementById("resultDiv").appendChild(moreLink);
 }
 })();
