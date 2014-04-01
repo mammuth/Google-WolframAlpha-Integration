@@ -4,10 +4,12 @@ Process Flow:
 2. Parse that XML to get a HTML-Object of the Result
 3. Inject this object beautifully into the Google Site
 */
+var searchQuery;
 
 /* Get Search Query out of URL and think about we should really go for Wolfram instead of Google */
 (function(undefined){
 chrome.runtime.sendMessage("getURL", function(response) {
+	searchQuery = response;
 	// Determine whether Google provided their own "Quick Results"
 	if (!document.getElementsByClassName("vk_c")[0]) {
 		console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
@@ -31,10 +33,10 @@ function injectWolframButton(searchQuery) {
 	wolframButton.setAttribute("type", "button");
     wolframButton.setAttribute("value", "wolfram");
     wolframButton.setAttribute("name", "wolframButton");
-    wolframButton.setAttribute("onclick", "runWolfram()");
-	document.getElementsById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt"));
+	wolframUrl = "http://www.wolframalpha.com/input/?i="+searchQuery;
+    wolframButton.setAttribute("onclick", "window.open(wolframUrl,'_blank');");
+	document.getElementById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt"));
 }
-
 
 /* 
 Get and Parse the Wolfram|Alpha result XML
