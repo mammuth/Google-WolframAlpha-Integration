@@ -3,6 +3,7 @@ function onPageUpdate(tabID, changeInfo, tab) {
   addIconToOmnibar(tabID, changeInfo, tab);
 }
 
+
 function getURL(tabID, changeInfo, tab){
   var url = tab.url;
   var begin;

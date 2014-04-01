@@ -6,6 +6,7 @@ Process Flow:
 */
 /* Get Search Query out of URL and think about we should really go for Wolfram instead of Google */
 (function(undefined){
+
 var searchQuery;
 
 function getURL() {	
@@ -30,8 +31,12 @@ window.onpopstate = getURL; //calls the method on every history change.
 Inject a Button "Search on Wolfram Alpha!" when not displaying them automatically
 */
 function injectWolframButton(searchQuery) {
-	var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(openWolframWebsite);
-    $input.insertBefore("#rcnt");
+	if($('#wolframButton').length == 0) { // to avoid double buttons. Two mighty buttons would be too awesome!
+		var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(openWolframWebsite);
+	    $input.insertBefore("#rcnt");
+	} else {
+		$('#wolframButton').click(openWolframWebsite);
+	}
 }
 
 function openWolframWebsite(){
