@@ -27,7 +27,7 @@
 }
 
 #wolframButton {
-<<<<<<< HEAD
+	margin-left: 127px;
 	color: aliceblue;
 	border: none;
 	border-bottom-left-radius: 0;
@@ -42,19 +42,3 @@
 	background: -webkit-linear-gradient(top,#4387fd,#4683ea);
 	background: linear-gradient(top,#4387fd,#4683ea);
 }
-=======
-	border-radius: 7px;
-	background-color:transparent;
-	border: 1px solid #eeb44f;
-	color: #ffffff;
-	margin-left: 127px;
-	font-size: 10px;
-	font-weight: bold;
-	font-style: normal;
-	height: 35px;
-	width: 65px;
-	text-decoration: none;
-	text-align: center;
-	text-shadow: 1px 1px 0px #cc9f52;
-}
->>>>>>> 79dde421089aaa5538d3834a4645ed0f7b99bd8c
