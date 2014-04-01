@@ -33,7 +33,7 @@ function injectWolframButton(searchQuery) {
 	wolframButton.setAttribute("type", "button");
     wolframButton.setAttribute("value", "wolfram");
     wolframButton.setAttribute("name", "wolframButton");
-	wolframUrl = "http://www.wolframalpha.com/input/?i="+searchQuery;
+	wolframUrl = "//www.wolframalpha.com/input/?i=\"+searchQuery";
     wolframButton.setAttribute("onclick", "window.open(wolframUrl,'_blank');");
 	document.getElementById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt"));
 }
