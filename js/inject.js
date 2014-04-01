@@ -6,12 +6,13 @@ Process Flow:
 */
 /* Get Search Query out of URL and think about we should really go for Wolfram instead of Google */
 (function(undefined){
+var searchQuery;
 
 function getURL() {	
 	chrome.runtime.sendMessage("getURL", function(response) {
 		searchQuery = response;
 		// Determine whether Google provided their own "Quick Results"
-		if (!document.getElementsByClassName("vk_c")[0]) {
+		if (!document.getElementsByClassName("vk_cxp")[0]) {
 			console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
 			requestWolframResult(response);		
 		} else {
@@ -28,15 +29,24 @@ Inject a Button "Search on Wolfram Alpha!" when not displaying them automaticall
 */
 function injectWolframButton(searchQuery) {
 	// Result Container
-	var wolframButton = document.createElement("button");
+	/* var wolframButton = document.createElement("button");
 	wolframButton.id = "wolframButton";
 	wolframButton.innerHTML = "Seach Wolfram";
 	wolframButton.setAttribute("type", "button");
     wolframButton.setAttribute("value", "wolfram");
     wolframButton.setAttribute("name", "wolframButton");
-	wolframUrl = "//www.wolframalpha.com/input/?i=\"+searchQuery";
-    wolframButton.setAttribute("onclick", "window.open(wolframUrl,'_blank');");
-	document.getElementById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt"));
+	 wolframUrl = "//www.wolframalpha.com/input/?i=\"+searchQuery";
+    wolframButton.setAttribute("onclick", "window.open(wolframUrl,'_blank');"); 
+	document.getElementById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt")); */
+	
+	var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(myAlert);
+    $input.insertBefore("#rcnt");
+}
+
+
+
+function myAlert(){
+		window.open("//www.wolframalpha.com/input/?i="+searchQuery,'_blank');
 }
 
 /* 
