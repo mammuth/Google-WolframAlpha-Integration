@@ -7,15 +7,33 @@ Process Flow:
 
 // Start when DOM is ready
 $( document ).ready(function() {
+
 	// Determine whether Google provided their own "Quick Results"
 	if (!document.getElementsByClassName("vk_c")[0]) {
 		console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
 		requestWolframResult(getSearchQuery());
 	} else {
 		console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
+		
 	}
     
 });
+
+injectWolframButton(getSearchQuery());
+/*
+Inject a Button "Search on Wolfram Alpha!" when not displaying them automatically
+*/
+function injectWolframButton(searchQuery) {
+	// Result Container
+	var wolframButton = document.createElement("button");
+	wolframButton.id = "wolframButton";
+	wolframButton.innerHTML = "Wolfram|Alpha";
+	wolframButton.setAttribute("type", "button");
+    wolframButton.setAttribute("value", "wolfram");
+    wolframButton.setAttribute("name", "wolframButton");
+    wolframButton.setAttribute("onclick", "runWolfram()");
+	document.getElementsById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt"));
+}
 
 /*
 Get search query string (eg. sunrise+munich)
