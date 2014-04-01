@@ -28,25 +28,12 @@ window.onpopstate = getURL; //calls the method on every history change.
 Inject a Button "Search on Wolfram Alpha!" when not displaying them automatically
 */
 function injectWolframButton(searchQuery) {
-	// Result Container
-	/* var wolframButton = document.createElement("button");
-	wolframButton.id = "wolframButton";
-	wolframButton.innerHTML = "Seach Wolfram";
-	wolframButton.setAttribute("type", "button");
-    wolframButton.setAttribute("value", "wolfram");
-    wolframButton.setAttribute("name", "wolframButton");
-	 wolframUrl = "//www.wolframalpha.com/input/?i=\"+searchQuery";
-    wolframButton.setAttribute("onclick", "window.open(wolframUrl,'_blank');"); 
-	document.getElementById("rcnt").parentNode.insertBefore(wolframButton, document.getElementById("rcnt")); */
-	
-	var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(myAlert);
+	var $input = $('<input type="button" id="wolframButton" value="Seach Wolfram">').click(openWolframWebsite);
     $input.insertBefore("#rcnt");
 }
 
-
-
-function myAlert(){
-		window.open("//www.wolframalpha.com/input/?i="+searchQuery,'_blank');
+function openWolframWebsite(){
+		window.open("//www.wolframalpha.com/input/?i="+searchQuery, "_blank");
 }
 
 /* 
