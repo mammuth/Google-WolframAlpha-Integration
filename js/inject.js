@@ -21,7 +21,7 @@ function getURL() {
 	})
 };
 
-//getURL();
+getURL(); // this makes searching via omnibox possible.
 
 window.onpopstate = getURL; //calls the method on every history change.
 
