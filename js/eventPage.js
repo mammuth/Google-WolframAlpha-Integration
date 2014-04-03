@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener(
 
 function addIconToOmnibar(tabID, changeInfo, tab) {
     var url = tab.url;
-    if (url.indexOf("google.") !== -1) {
+    if (url.indexOf("google.") !== -1) { // Only show the icon on google!
     chrome.pageAction.show(tab.id);
   }
 }
