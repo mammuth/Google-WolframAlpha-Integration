@@ -3,7 +3,7 @@ Google-WolframAlpha-Integration
 
 Chrome Extension that integrates Wolfram|Alpha results into Google.
 
-Under development.
+This extension works, but isn't finished. It probably won't be enhanced further by us.
 
 Google Now isn't bad, for sure, but it's no question that Wolfram|Alpha has sometimes better and definitely more results.
 So we thought it would be nice to **provide those Wolfram|Alpha information** just in your Google search result - always then **when Google Now quits the service.**
