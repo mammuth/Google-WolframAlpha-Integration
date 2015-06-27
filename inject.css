@@ -24,7 +24,7 @@
 	color: #878787;
 	text-decoration: none;
 	font-size: xx-small;
-	margin-left: 500px;
+	margin-left: 330px;
 }
 
 #wolframButton {
@@ -42,4 +42,83 @@
 	background: #4285f4;
 	background: -webkit-linear-gradient(top,#4387fd,#4683ea);
 	background: linear-gradient(top,#4387fd,#4683ea);
+}
+
+
+/*
+The Loading Spinner for showing progress of the Wolfram request
+*/
+
+.loading,
+.loading::before,
+.loading::after {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	border: 1px solid red;
+	border-left-color: blue;
+	-webkit-border-radius: 999px;
+	-moz-border-radius: 999px;
+	border-radius: 999px;
+}
+
+.loading {
+	z-index: 99999;
+	margin: -25px 0 0 -25px;
+	height: 50px;
+	width: 50px;
+	-webkit-animation: animation-rotate 1000ms linear infinite;
+	-moz-animation: animation-rotate 1000ms linear infinite;
+	-o-animation: animation-rotate 1000ms linear infinite;
+	animation: animation-rotate 1000ms linear infinite;
+}
+
+.loading::before {
+
+	z-index: 99999;
+	content: "";
+	margin: -23px 0 0 -23px;
+	height: 44px;
+	width: 44px;
+	-webkit-animation: animation-rotate 1000ms linear infinite;
+	-moz-animation: animation-rotate 1000ms linear infinite;
+	-o-animation: animation-rotate 1000ms linear infinite;
+	animation: animation-rotate 1000ms linear infinite;
+}
+
+.loading::after {
+
+	z-index: 99999;
+	content: "";
+	margin: -29px 0 0 -29px;
+	height: 56px;
+	width: 56px;
+	-webkit-animation: animation-rotate 2000ms linear infinite;
+	-moz-animation: animation-rotate 2000ms linear infinite;
+	-o-animation: animation-rotate 2000ms linear infinite;
+	animation: animation-rotate 2000ms linear infinite;
+}
+
+@-webkit-keyframes animation-rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@-moz-keyframes animation-rotate {
+	100% {
+		-moz-transform: rotate(360deg);
+	}
+}
+
+@-o-keyframes animation-rotate {
+	100% {
+		-o-transform: rotate(360deg);
+	}
+}
+
+@keyframes animation-rotate {
+	100% {
+		transform: rotate(360deg);
+	}
 }

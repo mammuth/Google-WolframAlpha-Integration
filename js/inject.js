@@ -7,25 +7,75 @@ Process Flow:
 /* Get Search Query out of URL and think about we should really go for Wolfram instead of Google */
 (function(undefined){
 
-var searchQuery;
+// function getURL() {	
+// 	chrome.runtime.sendMessage("getURL", function(response) {
+// 		searchQuery = response;
+// 		console.log("url = "+response);
+// 		// Determine whether Google provided their own "Quick Results"
+// 		if (!document.getElementsByClassName("vk_cxp")[0]) {
+// 			console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
+// 			requestWolframResult(response);		
+// 		} else {
+// 			injectWolframButton(response);
+// 			console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
+// 		}   
+// 	});
+// }
 
-function getURL() {	
-	chrome.runtime.sendMessage("getURL", function(response) {
-		searchQuery = response;
-		// Determine whether Google provided their own "Quick Results"
-		if (!document.getElementsByClassName("vk_cxp")[0]) {
-			console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
-			requestWolframResult(response);		
-		} else {
-			injectWolframButton(response);
-			console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
-		}   
-	});
+function main(){
+	var searchQuery = extractSearchQuery(getURL()); 
+
+	// Determine whether Google provided their own "Quick Results"
+	if (!document.getElementsByClassName("vk_c")[0]) {
+		console.log("Google has NO 'Quick Results' --> Query WolframAlpha!");
+		toggleLoadingIndicator();
+		requestWolframResult(searchQuery);	
+	} else {
+		injectWolframButton(searchQuery);
+		console.log("Google has their 'Quick Results' --> no need for WolframAlpha");
+	}   
+
 }
 
-getURL(); // this makes searching via omnibox possible.
+window.onpopstate = main(); //calls the method on every history change
 
-window.onpopstate = getURL; //calls the method on every history change.
+
+
+
+function toggleLoadingIndicator() {
+	if($('#wa_loading').length) {
+		$('#wa_loading').hide();
+	} else {
+		$('#hdtb-msb').append('<div id="wa_loading" class="loading" title="Wolfram Alpha is loading"></div>');
+	}
+}
+
+function getURL() {
+	console.log('getURL() returns '+document.URL);
+	return document.URL;
+}
+function extractSearchQuery(url) {
+	var orig = url;
+	var begin;
+	var end;
+	if(url.lastIndexOf("#q=") !== -1) {
+		begin = url.lastIndexOf("#q=");
+	} else {
+		begin = url.lastIndexOf("?q=");
+	}
+
+	url = url.substring(begin +3, url.length);
+	if (url.indexOf("&") < url.length) {
+		end = url.indexOf("&");
+	} else {
+		end = url.length;
+	}
+
+	searchQuery = url.substring(0, end);
+	console.log("extractSearchQuery("+orig+") returns "+searchQuery);
+	return searchQuery;
+}
+
 
 /*
 Inject a Button "Search on Wolfram Alpha!" when not displaying them automatically
@@ -38,16 +88,16 @@ function injectWolframButton(searchQuery) {
 }
 
 function openWolframWebsite(){
-		window.open("//www.wolframalpha.com/input/?i="+searchQuery, "_blank");
+	window.open("//www.wolframalpha.com/input/?i="+searchQuery, "_blank");
 }
 
 /* 
 Get and Parse the Wolfram|Alpha result XML
 */
 function requestWolframResult(searchQuery) {
-	console.log("Method called");
+	console.log("called requestWolframResult() with searchQuery="+searchQuery);
 	var xmlhttp = new XMLHttpRequest();
-	 
+
 	xmlhttp.onreadystatechange = function(){
 		if (xmlhttp.readyState == 4 && xmlhttp.status === 200){
 			var xmlDoc = xmlhttp.responseXML;
@@ -65,10 +115,10 @@ function requestWolframResult(searchQuery) {
 			//displayResultAsPlaintext(plaintexts[1].textContent, pods[1].getAttribute("title"), searchQuery);
 			// As image
 			displayResultAsImage(imgs[1].getAttribute("src"), imgs[1].getAttribute("width"), imgs[1].getAttribute("height"), imgs[1].getAttribute("title"), imgs[1].getAttribute("alt"), pods[1].getAttribute("title"), searchQuery);
+			toggleLoadingIndicator();
 		}
 	};
-	xmlhttp.open("GET","http://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
-	// xmlhttp.open("GET","http://www.maxi-muth.de/wa.xml",true);
+	xmlhttp.open("GET","https://api.wolframalpha.com/v2/query?input="+searchQuery+"&appid=8X6XE5-Q5887TY7TE",true);
 	xmlhttp.send();
 }
 
@@ -77,7 +127,7 @@ function displayResultAsImage(imgSrc, width, height, title, alt, description, se
 	// Result Container
 	if ($('#resultDiv').length === 0) { //if the div doesn't already exists:
 		var resultDiv = document.createElement("div");
-		resultDiv.id = "resultDiv";
+	resultDiv.id = "resultDiv";
 		// Insert result div into DOM	
 		document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
 		// Add Description and more link into resultDiv
@@ -104,13 +154,13 @@ function displayResultAsImage(imgSrc, width, height, title, alt, description, se
 	descriptionDiv.innerHTML = description;	
 	
 	// More link
-	moreLink.appendChild(document.createTextNode("More"));
+	moreLink.appendChild(document.createTextNode("provided by WolframAlpha. Click for more"));
 	moreLink.title = "All details on the awesome site of Wolfram|Alpha";
 	moreLink.href = "http://www.wolframalpha.com/input/?i="+searchQuery;
 	moreLink.target = "_blank";
 	$('#resultDiv').append(descriptionDiv);
 	$('#resultDiv').append(moreLink);
-		
+
 	// Add Description and more link into resultDiv
 	$('#resultDiv').append(resultImg);
 	$('#resultDiv').append(descriptionDiv);
@@ -123,7 +173,7 @@ function displayResultAsPlaintext(result, description, searchQuery) {
 	// Result
 	if ($('#resultDiv').length === 0) { //if the div doesn't already exists:
 		var resultDiv = document.createElement("div");
-		resultDiv.id = "resultDiv";
+	resultDiv.id = "resultDiv";
 		// Insert result div into DOM	
 		document.getElementById("rcnt").parentNode.insertBefore(resultDiv, document.getElementById("rcnt"));
 		// Add Description and more link into resultDiv
