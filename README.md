@@ -14,3 +14,14 @@ Compare historical persons:
 ![albert](https://cloud.githubusercontent.com/assets/3121306/2575614/e754e03e-b956-11e3-9332-d2bf7f7534ef.png)
 And do all the rest of the awesome [Wolfram|Alpha](http://www.wolframalpha.com/examples/)!
 ![chemistry-joke](https://cloud.githubusercontent.com/assets/3121306/2575616/e962bcb6-b956-11e3-8934-34d73feaebc0.png)
+ 
+#### How to try:
+- git clone git@github.com:mammuth/Google-WolframAlpha-Integration.git
+- go to chrome://extensions
+- check the *Developer mode* checkbox
+- select *Load unpacked extension...*
+
+
+Take a look at the console output when visiting Google.
+
+**Note:** The Quota of my API Key is limited - you might add your own one for proper use. Furthermore the extension might not work anymore due to changes on the Google Search result page.
