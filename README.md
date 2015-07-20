@@ -25,6 +25,6 @@ And do all the rest of the awesome [Wolfram|Alpha](http://www.wolframalpha.com/e
 Take a look at the console output when visiting Google.
 
 **Notes:** 
+- The API Query to WolframAlpha is **really slow**...
 - The Quota of my API Key is limited - you might add your own one for proper use. 
 - The extension might not work anymore due to changes on the Google Search result page.
-- The API Query to WolframAlpha is **really slow**...
